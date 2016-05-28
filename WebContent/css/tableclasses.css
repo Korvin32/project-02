@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+.special_column {
+	width: 13px;
+}
+
+div.round_bordered {
+	/*float: left;*/ /*this has to be configured conditionally! */
+	width: 80px;
+	padding: 10px;
+	background: white;
+	border: 1px solid rgb(180, 180, 180);
+	border-top-left-radius: 13px 11px;
+	border-top-right-radius: 13px 11px;
+	border-bottom-left-radius: 13px 11px;
+	border-bottom-right-radius: 13px 11px;
+	text-align: center;
+	margin: 5px;
+	overflow-y: hidden;
+	margin: 0px 5px 5px 0px;
+}
+
+ul li.category {
+	/*list-style-image: url(http://patatuyki.com.ua/img/o.gif);*/
+	margin: 0px 0px -1px 0px;
+}
+
+ul li a.category_item {
+	font-size: 12px;
+	font-family: Verdana;
+	color: #404040;
+	display: block;
+	position: relative;
+	left: -5px;
+	line-height: 1.1em;
+}
+
+ul li a.category_item_selected {
+	font-size: 12px;
+	font-family: Verdana;
+	color: darkorange;
+	display: block;
+	position: relative;
+	left: -5px;
+	line-height: 1.1em;
+}

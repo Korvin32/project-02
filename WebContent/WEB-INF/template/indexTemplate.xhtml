@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Head Nav. Menu</title>
+	<link rel="stylesheet" type="text/css" href="../css/tableclasses.css" />
+</h:head>
+<h:body styleClass="ice-skin-rime">
+	<h:messages id="globalMessages" errorStyle="color:red"/>
+
+	<h:form id="ajaxForm">
+		<h:inputText id="inputText" value="#{ajaxExample.text}">
+			<f:ajax execute="inputText" render="ajaxForm:outputText" event="valueChange"/>
+		</h:inputText>
+		<h:outputText id="outputText" value="#{ajaxExample.text !=null ? ajaxExample.text : ''}" />
+	</h:form>
+	<br />
+	<h:form id="form">
+		<h:panelGrid columns="1" border="1">
+			<f:facet name="header">Welcome to JSF 2.2</f:facet>
+			<h:commandLink value="Administration" action="admin/admin?faces-redirect=true" immediate="true" />
+		</h:panelGrid>
+		<h:panelGrid columns="2" border="1">
+			<f:facet name="header">Current ViewID:</f:facet>
+			<h:outputText value="Passed to template from view: #{curViewId}" />
+			<h:outputText value="this.viewId: #{view.viewId}"/>
+		</h:panelGrid>
+		<h:panelGrid columns="1" border="1">
+			<f:facet name="header">Current File Name Passed To Template From File:</f:facet>
+			<h5>curFileName: #{curFileName}</h5>
+		</h:panelGrid>
+		<br/>
+		<h:panelGrid columns="3">
+			<h:panelGroup>
+				<ui:insert name="headerMenu">
+					<ui:include src="../commonHeader.xhtml" />
+				</ui:insert>
+				<ui:insert name="content">
+					<ui:include src="../commonContent.xhtml">
+						<ui:param name="tagLine" value="JSF a day, bug away"></ui:param> <!-- to pass ui:param to ui:include file (NOT to ui:define!)-->
+					</ui:include>
+				</ui:insert>
+			</h:panelGroup>
+			<h:panelGroup>
+				<ui:insert name="rightSide">
+					<ui:include src="../commonRight.xhtml" />
+				</ui:insert>
+			</h:panelGroup>
+			<h:panelGroup>
+				<ui:insert name="productContent">
+					<ui:include src="../commonProductGallery.xhtml" />
+				</ui:insert>
+			</h:panelGroup>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

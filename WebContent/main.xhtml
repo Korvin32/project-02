@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="./WEB-INF/template/indexTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="view" value="#{menuController.vpView}"></f:viewParam>
+		<f:viewAction action="#{menuController.initHeaderMenu}" onPostback="true" />
+	</f:metadata>
+
+	<ui:param name="curFileName" value="#{menuController.selectedMenu.xhtmlViewName}" /> <!-- to pass param to template file -->
+	<ui:param name="curViewId" value="#{view.viewId}" />
+	
+	<ui:define name="content">
+		<!-- 
+		<h1>This is the Main content</h1>
+		<h2>Value from current selected menu = #{menuController.selectedMenu.viewContent}</h2>
+		<h4>(From: #{menuController.selectedMenu.xhtmlViewName})</h4>
+		 -->
+		<ui:include src="./WEB-INF/subMain.xhtml">
+			<!-- sub-layout for main page of layout type main -->
+			<ui:param name="subParam" value="#{menuController.selectedMenu.viewContent}" /> <!-- to pass ui:param to ui:include file -->
+		</ui:include>
+	</ui:define>
+
+</ui:composition>

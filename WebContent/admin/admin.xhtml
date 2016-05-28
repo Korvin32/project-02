@@ -1,0 +1,245 @@
+<?xml version='1.1' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:fb="http://ogp.me/ns/fb#"
+	
+	xmlns:my=	"http://java.sun.com/jsf/composite/components"
+	xmlns:prj2=	"http://java.sun.com/jsf/composite/prj2">
+
+
+<h:head>
+
+	<!-- Facebook-Properties -->
+	<meta property="og:title" content="artmama.de" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://www.artmama.de" />
+	<meta property="og:image" content="http://www.artmama.de" />
+	<meta property="og:site_name" content="artmama.de" />
+	<meta property="fb:admins" content="1656201604" />
+
+	<title>Head Nav. Menu: Administration</title>
+	<link rel="stylesheet" type="text/css" href="./css/tableclasses.css" />
+	
+	<!-- Put this script tag to the <head> of your page -->
+	<script type="text/javascript" src="//vk.com/js/api/openapi.js?79"></script>
+	<script type="text/javascript">
+	  VK.init({apiId: 3455734, onlyWidgets: true});
+	</script>
+	
+
+	<!-- ******************************** jQuery and jQuery UI *********************** -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
+	<!-- ***************************************************************************** -->
+	
+	<!-- ******************************** CarouFredSel ******************************* -->
+	<script type="text/javascript" src="./javascript/caroufredsel/jquery.carouFredSel.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/caroufredsel/examples.css" />
+	<!-- ***************************************************************************** -->
+
+	<!-- ******************************** GalleryView ******************************** -->
+	<script type="text/javascript" src="./javascript/galleryview/jquery.timers-1.2.js"></script>
+	<script type="text/javascript" src="./javascript/galleryview/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="./javascript/galleryview/jquery.galleryview-3.0-dev.js"></script>
+	<link type="text/css" rel="stylesheet" href="./css/galleryview/jquery.galleryview-3.0-dev.css" />
+	<!-- ***************************************************************************** -->
+	
+
+</h:head>
+<h:body styleClass="ice-skin-rime">
+	
+	<h:form id="fb_form">
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+				  var js, fjs = d.getElementsByTagName(s)[0];
+				  if (d.getElementById(id)) return;
+				  js = d.createElement(s);
+				  js.id = id;
+				  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+				  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<fb:like href="http://www.patatuyki.com.ua" send="true" width="450" show_faces="true"></fb:like>
+	</h:form>
+	
+	<h:form id="form">
+		<h:panelGrid columns="1">
+			<f:facet name="header">Welcome to Admin page (JSF 2.2)</f:facet>
+			<prj2:repeater title="Panel Title">
+				Some Text is here
+			</prj2:repeater>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">
+			<f:facet name="header">Custom inputDate Component</f:facet>
+			<my:inputDate id="foo" value="#{bean.date1}" maxyear="2000" minyear="1990"/>
+			<h:commandButton action="#{bean.submit}" value="Submit" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">
+			<f:facet name="header">Current ViewID:</f:facet>
+			<h5>#{curViewId}</h5>
+			<h5>this.viewId: #{view.viewId}</h5>
+		</h:panelGrid>
+		
+		<h:dataTable value="#{adminBean.menuDataList}" var="menuItem">
+		
+	        <h:column>
+	            <f:facet name="header">Order</f:facet>
+	            #{menuItem.order}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Rendered</f:facet>
+	            #{menuItem.rendered}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Item</f:facet>
+	            #{menuItem.item}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Action</f:facet>
+	            #{menuItem.action}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">ContentIncludeSrc</f:facet>
+	            #{menuItem.xhtmlViewName}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">View Param</f:facet>
+	            #{menuItem.viewParam}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Param-Value</f:facet>
+	            #{menuItem.viewContent}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Remove</f:facet>
+	            <h:commandButton action="#{adminBean.removeMenuItem}" value="D" immediate="true" >
+	            	<f:setPropertyActionListener target="#{adminBean.selectedItem}" value="#{menuItem}" />
+	            </h:commandButton>
+	        </h:column>
+		
+		</h:dataTable>
+		
+		<h:panelGrid columns="5">
+			<h:outputText value="Order" />
+			<h:outputText value="Rendered" />
+			<h:outputText value="Item" />
+			<h:outputText value="Action" />
+			<h:outputText value="ParamValue" />
+		     
+			<h:inputText id="order"					value="#{adminBean.order}" readonly="true" />
+			<h:inputText id="rendered"				value="#{adminBean.rendered}" required="true" />
+			<h:inputText id="item"					value="#{adminBean.item}" required="true" />
+			<h:selectOneMenu value="#{adminBean.action}">
+				<f:selectItems value="#{adminBean.actions}"/>
+			</h:selectOneMenu>
+			<h:inputText id="paramValue"				value="#{adminBean.viewContent}" required="true" />
+		</h:panelGrid>
+		
+		<h:commandButton id="addMenu" value="Add Menu" action="#{adminBean.addMenuItem}" />
+		<h:commandLink value="Home" action="../index?faces-redirect=true" immediate="true" />
+		<h:message for="addMenu" />
+		
+		<br />
+		<!-- ******************************************************************************************************************************************** -->
+		<div style="float: left; margin: 0px 10px 150px 0px;width: 135px;">
+			<ul>
+				<ui:repeat value="#{adminBean.menuDataList}" var="menu">
+					<li class="catalog">
+						<span class="catalog_item">#{menu.item}</span>
+					</li>
+				</ui:repeat>
+			</ul>
+		</div>
+		<div style="width: 100%;">
+			<ui:repeat value="#{adminBean.menuDataList}" var="menu" varStatus="status">
+				<h:panelGroup layout="block" styleClass="round_bordered" style="#{(((status.index+1)%adminBean.itemsPerLine eq 0) or status.last)?'':'float:left'}">
+		    		<h:commandLink value="http://patatuyki.com.ua/gallery.php?img=bag_WWL_3.jpg" >
+		    			<h:graphicImage url="http://patatuyki.com.ua/img/tovar/bag_WWL_3.jpg" width="80" height="80" />
+		    		</h:commandLink>
+				</h:panelGroup>
+			</ui:repeat>
+		</div>
+		<!-- ******************************************************************************************************************************************** -->
+		
+		<!-- **************************** CarouFredSel ************************************************************************************************** -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+			    $("#prodfilmstrip").carouFredSel({
+					infinite			: false,
+					circular			: false,
+			        items               : 3,
+			        direction           : "left",
+			        height				: null,
+			        width				: null,
+			        prev : {
+			        	button			: "#prev-btn"
+				    },
+			        next : {
+				        button			: "#next-btn"
+				    },
+			        pagination			: {
+				        container		: "#pager",
+				        items			: 3
+				    },
+			        scroll : {
+			            items           : 1,
+			            easing          : "swing",
+			            duration        : 200,                        
+			            pauseOnHover    : true
+			        },
+			        auto : {
+				        play			: false
+				    },
+			    });
+			});
+		</script>
+		<div class="image_carousel">
+			<div id="prodfilmstrip">
+				<ui:repeat value="#{adminBean.menuDataList}" var="menu">
+		    		<h:commandLink value="http://patatuyki.com.ua/gallery.php?img=bag_WWL_3.jpg" >
+		    			<h:graphicImage url="http://patatuyki.com.ua/img/tovar/bag_WWL_3.jpg" width="80" height="80" />
+		    		</h:commandLink>
+				</ui:repeat>
+			</div>
+			<div style="float: none;clear: both;"></div>
+			<a class="prev" id="prev-btn" href="#"><span>prev</span></a>
+			<a class="next" id="next-btn" href="#"><span>next</span></a>
+			<div class="pagination" id="pager"></div>
+		</div>
+		<!-- ******************************************************************************************************************************************** -->
+		
+		<!-- **************************** GalleryView *************************************************************************************************** -->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#productgallery").galleryView({
+					enable_slideshow		: false,
+					panel_scale				:"fit"
+				});
+			});
+		</script> 		
+		<div>
+			<ul id="productgallery">
+				<ui:repeat value="#{adminBean.menuDataList}" var="menu">
+					<li>
+						<h:graphicImage url="http://patatuyki.com.ua/img/tovar/bag_WWL_3.jpg" />
+					</li>
+				</ui:repeat>
+			</ul>
+	 	</div>
+		<!-- ******************************************************************************************************************************************** -->
+
+		<script type="text/javascript">
+			VK.Widgets.Like("vk_like", {
+				type: "mini", verb: 1
+			});
+		</script>
+		<!-- Put this div tag to the place, where the Like block will be -->
+		<div id="vk_like"></div>
+		
+	</h:form>
+</h:body>
+</html>

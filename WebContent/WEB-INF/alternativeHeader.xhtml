@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<ui:repeat value="#{menuController.menuItems}" var="item">
+		<h:commandLink value="#{item.item}" title="#{item.item}" action="#{item.action}" actionListener="#{menuController.menuItemActionListener}" style="#{menuController.getStyleForHeaderMenu(item)}">
+			<f:attribute name="selectedItem" value="#{item}"></f:attribute>
+		</h:commandLink>
+		&nbsp;
+	</ui:repeat>
+	
+</ui:composition>
