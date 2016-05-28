@@ -21,35 +21,28 @@
 	<meta property="fb:admins" content="1656201604" />
 
 	<title>Head Nav. Menu: Administration</title>
-	<link rel="stylesheet" type="text/css" href="./css/tableclasses.css" />
+	<link rel="stylesheet" type="text/css" href="../css/tableclasses.css" />
 	
-	<!-- Put this script tag to the <head> of your page -->
-	<script type="text/javascript" src="//vk.com/js/api/openapi.js?79"></script>
-	<script type="text/javascript">
-	  VK.init({apiId: 3455734, onlyWidgets: true});
-	</script>
-	
-
 	<!-- ******************************** jQuery and jQuery UI *********************** -->
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
 	<!-- ***************************************************************************** -->
 	
 	<!-- ******************************** CarouFredSel ******************************* -->
-	<script type="text/javascript" src="./javascript/caroufredsel/jquery.carouFredSel.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/caroufredsel/examples.css" />
+	<script type="text/javascript" src="../javascript/caroufredsel/jquery.carouFredSel.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/caroufredsel/examples.css" />
 	<!-- ***************************************************************************** -->
 
 	<!-- ******************************** GalleryView ******************************** -->
-	<script type="text/javascript" src="./javascript/galleryview/jquery.timers-1.2.js"></script>
-	<script type="text/javascript" src="./javascript/galleryview/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="./javascript/galleryview/jquery.galleryview-3.0-dev.js"></script>
-	<link type="text/css" rel="stylesheet" href="./css/galleryview/jquery.galleryview-3.0-dev.css" />
+	<script type="text/javascript" src="../javascript/galleryview/jquery.timers-1.2.js"></script>
+	<script type="text/javascript" src="../javascript/galleryview/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="../javascript/galleryview/jquery.galleryview-3.0-dev.js"></script>
+	<link type="text/css" rel="stylesheet" href="../css/galleryview/jquery.galleryview-3.0-dev.css" />
 	<!-- ***************************************************************************** -->
 	
 
 </h:head>
-<h:body styleClass="ice-skin-rime">
+<h:body>
 	
 	<h:form id="fb_form">
 		<div id="fb-root"></div>
@@ -61,7 +54,7 @@
 				  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
 				  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<fb:like href="http://www.patatuyki.com.ua" send="true" width="450" show_faces="true"></fb:like>
+		<fb:like href="http://artmama.de" send="true" width="450" show_faces="true"></fb:like>
 	</h:form>
 	
 	<h:form id="form">
@@ -157,8 +150,8 @@
 		<div style="width: 100%;">
 			<ui:repeat value="#{adminBean.menuDataList}" var="menu" varStatus="status">
 				<h:panelGroup layout="block" styleClass="round_bordered" style="#{(((status.index+1)%adminBean.itemsPerLine eq 0) or status.last)?'':'float:left'}">
-		    		<h:commandLink value="http://patatuyki.com.ua/gallery.php?img=bag_WWL_3.jpg" >
-		    			<h:graphicImage url="http://patatuyki.com.ua/img/tovar/bag_WWL_3.jpg" width="80" height="80" />
+		    		<h:commandLink title="http://static.artmama.net/store/bag_WWL_3.jpg">
+		    			<h:graphicImage url="http://static.artmama.net/store/bag_WWL_3.jpg" alt="http://static.artmama.net/store/bag_WWL_3.jpg" width="80" height="80" />
 		    		</h:commandLink>
 				</h:panelGroup>
 			</ui:repeat>
@@ -200,8 +193,8 @@
 		<div class="image_carousel">
 			<div id="prodfilmstrip">
 				<ui:repeat value="#{adminBean.menuDataList}" var="menu">
-		    		<h:commandLink value="http://patatuyki.com.ua/gallery.php?img=bag_WWL_3.jpg" >
-		    			<h:graphicImage url="http://patatuyki.com.ua/img/tovar/bag_WWL_3.jpg" width="80" height="80" />
+		    		<h:commandLink title="http://static.artmama.net/store/bag_WWL_3.jpg" >
+		    			<h:graphicImage url="http://static.artmama.net/store/bag_WWL_3.jpg" width="80" height="80" />
 		    		</h:commandLink>
 				</ui:repeat>
 			</div>
@@ -225,21 +218,13 @@
 			<ul id="productgallery">
 				<ui:repeat value="#{adminBean.menuDataList}" var="menu">
 					<li>
-						<h:graphicImage url="http://patatuyki.com.ua/img/tovar/bag_WWL_3.jpg" />
+						<h:graphicImage url="http://static.artmama.net/store/bag_WWL_3.jpg" />
 					</li>
 				</ui:repeat>
 			</ul>
 	 	</div>
 		<!-- ******************************************************************************************************************************************** -->
 
-		<script type="text/javascript">
-			VK.Widgets.Like("vk_like", {
-				type: "mini", verb: 1
-			});
-		</script>
-		<!-- Put this div tag to the place, where the Like block will be -->
-		<div id="vk_like"></div>
-		
 	</h:form>
 </h:body>
 </html>

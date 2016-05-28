@@ -11,7 +11,7 @@ import org.jboss.logging.Logger;
 @SessionScoped
 public class AjaxExample implements Serializable {
 
-	private static final long serialVersionUID = -877392086919906281L;
+	private static final long serialVersionUID = 1L;
 
 	private final static Logger LOG = Logger.getLogger(AjaxExample.class);
 

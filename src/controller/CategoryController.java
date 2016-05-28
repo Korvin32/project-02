@@ -21,7 +21,7 @@ import data.ProductData;
 // @RequestScoped
 public class CategoryController implements Serializable {
 
-    private static final long serialVersionUID = 2354059049000471596L;
+    private static final long serialVersionUID = 1L;
 
     public static final Logger LOG = Logger.getLogger(CategoryController.class);
 

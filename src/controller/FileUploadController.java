@@ -22,10 +22,12 @@ import org.slf4j.LoggerFactory;
 @SessionScoped
 public class FileUploadController implements Serializable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileUploadController.class);
+	private static final long serialVersionUID = 1L;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(FileUploadController.class);
     
-    private static final long serialVersionUID = 1L;
-
+    private static final String UPLOAD_DIRECTORY_LOCATION = "E:/tmp/_upload";
+    
     public void fileUploadHandler(FileUploadEvent event) {
         UploadedFile uFile = event.getFile();
         String uFileName = uFile.getFileName();
@@ -33,7 +35,7 @@ public class FileUploadController implements Serializable {
         try {
             InputStream iStrem = uFile.getInputstream();
             
-            Path newFile = Paths.get("D:/temp/_upload", uFileName);
+            Path newFile = Paths.get(UPLOAD_DIRECTORY_LOCATION, uFileName);
             
             Files.copy(iStrem, newFile, StandardCopyOption.REPLACE_EXISTING);
             

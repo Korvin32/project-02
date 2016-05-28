@@ -6,18 +6,23 @@ import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @ManagedBean(name="bean")
 @SessionScoped
 public class TestInputDateComponentBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final Logger LOG = LoggerFactory.getLogger(TestInputDateComponentBean.class);
+	
 	private long date1 = System.currentTimeMillis();
 	private Date date2 = new Date();
 	private Date date3 = new Date();
 	
 	public void submit() {
-		System.out.println("Date submited!");
+		LOG.info("Date submited!");
 	}
 	
 	public long getDate1() {

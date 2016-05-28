@@ -2,7 +2,7 @@ package utils;
 
 public class RquestParameterNotFoundException extends Exception {
 
-    private static final long serialVersionUID = 1281750046978083498L;
+    private static final long serialVersionUID = 1L;
 
     public RquestParameterNotFoundException(String viewParameterName) {
         super("The request parameter '" + viewParameterName

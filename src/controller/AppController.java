@@ -24,7 +24,7 @@ import data.MenuData;
 // @RequestScoped
 public class AppController implements Serializable {
 
-    private static final long serialVersionUID = -4423857768540561118L;
+    private static final long serialVersionUID = 1L;
 
     public static final Logger LOG = Logger.getLogger(AppController.class);
 

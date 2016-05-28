@@ -19,7 +19,7 @@ import data.ProductData;
 // @RequestScoped
 public class ProductController implements Serializable {
 
-    private static final long serialVersionUID = 4699797435663559037L;
+    private static final long serialVersionUID = 1L;
 
     public static final Logger LOG = Logger.getLogger(ProductController.class);
 
