@@ -21,6 +21,16 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">
+					<h:outputText value="Image" />
+				</f:facet>
+				<h:link title="#{product.name}" outcome="product?faces-redirect=true">
+					<h:graphicImage url="#{product.image}" alt="#{product.name}" height="40"/>
+					<f:param name="category" value="#{product.categoryId}" />
+					<f:param name="id" value="#{product.id}" />
+				</h:link>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
 					<h:outputText value="Name" />
 				</f:facet>
 				<h:link value="#{product.name}" title="#{product.name}" outcome="product?faces-redirect=true">
@@ -38,9 +48,9 @@
 				<f:facet name="header">
 					<h:outputText value="Price" />
 				</f:facet>
-				<h:outputFormat value="{0} €">
-					<f:param value="#{product.price}" />
-				</h:outputFormat>
+				<h:outputText value="#{product.price}" >
+					<f:convertNumber type="currency" currencyCode="EUR"/>
+				</h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">

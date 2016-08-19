@@ -13,6 +13,8 @@ public final class DataProvider {
 
     private final static Logger LOG = Logger.getLogger(DataProvider.class);
 
+    private static final int PRODUCTS_PER_CATEGORY = 100;
+    
     private static List<MenuData> menuItems = new ArrayList<MenuData>();
 
     private static List<CategoryData> categories = new ArrayList<CategoryData>();
@@ -41,34 +43,23 @@ public final class DataProvider {
     //@formatter:on
 
     static {
-        categories.add(new CategoryData(0, 0, "Category - 1"));
-        categories.add(new CategoryData(1, 1, "Category - 2"));
-        categories.add(new CategoryData(2, 2, "Category - 3"));
-        categories.add(new CategoryData(3, 3, "Category - 4"));
-        categories.add(new CategoryData(4, 4, "Category - 5"));
-        categories.add(new CategoryData(5, 5, "Category - 6"));
-        categories.add(new CategoryData(6, 6, "Category - 7"));
-        categories.add(new CategoryData(7, 7, "Category - 8"));
-        categories.add(new CategoryData(8, 8, "Category - 9"));
-        categories.add(new CategoryData(9, 9, "Category - 10"));
-        categories.add(new CategoryData(10, 10, "Category - 11"));
-        categories.add(new CategoryData(11, 11, "Category - 12"));
+        for (int c = 0; c < 12; c++) {
+            String name = String.format("Category - %d", (c + 1));
+            categories.add(new CategoryData(c, c, name));
+        }
     }
 
     static {
-        products.add(new ProductData(0, "Product 01", "description", 20.0, 0));
-        products.add(new ProductData(1, "Product 02", "description", 25.0, 0));
-        products.add(new ProductData(2, "Product 03", "description", 40.0, 0));
-        products.add(new ProductData(3, "Product 04", "description", 35.0, 1));
-        products.add(new ProductData(4, "Product 05", "description", 30.0, 1));
-        products.add(new ProductData(5, "Product 06", "description", 50.0, 1));
-        products.add(new ProductData(6, "Product 07", "description", 45.0, 2));
-        products.add(new ProductData(7, "Product 08", "description", 60.0, 2));
-        products.add(new ProductData(8, "Product 09", "description", 75.0, 2));
-        products.add(new ProductData(9, "Product 10", "description", 115.0, 3));
-        products.add(new ProductData(10, "Product 11", "description", 39.0, 3));
-        products.add(new ProductData(10, "Product 12", "description", 85.0, 3));
-        products.add(new ProductData(10, "Product 13", "description", 135.0, 3));
+        for (CategoryData category : categories) {
+            int categoryId = category.getId();
+            for (int p = 0; p < PRODUCTS_PER_CATEGORY; p++) {
+                int productId = PRODUCTS_PER_CATEGORY * categoryId + p;
+                String name = String.format("Product %02d", (productId + 1));
+                String description = String.format("Description for %s", name);
+                double price = Math.random() * 200;
+                products.add(new ProductData(productId, name, description, price, categoryId));
+            }
+        }
     }
 
     static {

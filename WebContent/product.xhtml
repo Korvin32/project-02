@@ -14,11 +14,14 @@
 	
 	<ui:define name="productContent">
 		<div style="float: left; margin: 0px 10px 150px 0px;width: 100%;">
-			#{productController.selectedProduct.id} <br />
+			#{productController.selectedProduct.id} (ID) <br />
 			#{productController.selectedProduct.name} <br />
 			#{productController.selectedProduct.description} <br />
-			#{productController.selectedProduct.price} <br />
-			#{productController.selectedProduct.categoryId} <br />
+			<h:outputText value="#{productController.selectedProduct.price}" >
+				<f:convertNumber type="currency" currencyCode="EUR"/>
+			</h:outputText><br />
+			#{productController.selectedProduct.categoryId} (CATEGORY_ID) <br />
+			<h:graphicImage value="#{productController.selectedProduct.image}" />
 		</div>
 	</ui:define>
 	

@@ -8,12 +8,12 @@ import javax.faces.bean.ViewScoped;
 
 import org.jboss.logging.Logger;
 
+import data.CategoryData;
+import data.ProductData;
 import utils.CategoryNotFoundException;
 import utils.Constants;
 import utils.DataProvider;
 import utils.FacesUtils;
-import data.CategoryData;
-import data.ProductData;
 
 @ManagedBean
 // @SessionScoped
@@ -94,7 +94,7 @@ public class CategoryController implements Serializable {
 
     /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     /*
-     * /* Here starts the handling of products gallery in a category (if selected) or a whole list of available products
+     * Here starts the handling of products gallery in a category (if selected) or a whole list of available products
      * (if no specific category selected)
      */
     /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
