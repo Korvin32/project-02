@@ -3,6 +3,7 @@ package handlers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.faces.FacesException;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 import javax.faces.application.ViewResource;
@@ -25,8 +26,9 @@ public class ExternalViewResourceHandler extends ResourceHandlerWrapper {
 
     @Override
     public ViewResource createViewResource(FacesContext context, String resourceName) {
-        LOG.info(String.format("createViewResource(%s)", resourceName));
+//        LOG.info(String.format("createViewResource(%s)", resourceName));
         ViewResource resource = super.createViewResource(context, resourceName);
+        
         if (resource == null) {
             resource = new ViewResource() {
                 
@@ -35,10 +37,8 @@ public class ExternalViewResourceHandler extends ResourceHandlerWrapper {
                     try {
                         return ExternalViewResourceProvider.getUrl(resourceName);
                     } catch (MalformedURLException e) {
-                        // TODO - make it property!!!
-                        e.printStackTrace();
+                    	throw new FacesException(e);
                     }
-                    return null;
                 }
             };
         }

@@ -3,7 +3,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	template="./WEB-INF/template/indexTemplate.xhtml">
+	template="/WEB-INF/resources/template/indexTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="view" value="#{menuController.vpView}"></f:viewParam>
@@ -19,7 +19,7 @@
 		<h2>Value from current selected menu = #{menuController.selectedMenu.viewContent}</h2>
 		<h4>(From: #{menuController.selectedMenu.xhtmlViewName})</h4>
 		 -->
-		<ui:include src="./WEB-INF/subMain.xhtml">
+		<ui:include src="/WEB-INF/resources/subMain.xhtml">
 			<!-- sub-layout for main page of layout type main -->
 			<ui:param name="subParam" value="#{menuController.selectedMenu.viewContent}" /> <!-- to pass ui:param to ui:include file -->
 		</ui:include>

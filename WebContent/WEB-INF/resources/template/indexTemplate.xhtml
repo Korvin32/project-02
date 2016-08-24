@@ -35,6 +35,12 @@
 	</h:form>
 	<br />
 	
+	<h:panelGrid columns="2" border="1">
+		<h:outputLabel value="Context path" for="context_path" />
+		<h:outputText value="#{request.contextPath}" id="context_path" />
+	</h:panelGrid>
+	
+	
 	<h:form id="form">
 		<h:panelGrid columns="1" border="1">
 			<f:facet name="header">Welcome to JSF 2.2</f:facet>
