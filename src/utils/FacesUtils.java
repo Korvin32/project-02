@@ -31,12 +31,12 @@ public final class FacesUtils {
         return false;
     }
 
-    public static String extractParameterValueFromRequestMap(String viewParameterName) throws RquestParameterNotFoundException {
+    public static String extractParameterValueFromRequestMap(String viewParameterName) throws RequestParameterNotFoundException {
         LOG.info("extractParameterValueFromRequestMap().");
         ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();
         String viewParameterValue = ctx.getRequestParameterMap().get(viewParameterName);
         if (viewParameterValue == null) {
-            throw new RquestParameterNotFoundException(viewParameterName);
+            throw new RequestParameterNotFoundException(viewParameterName);
         }
         return viewParameterValue;
     }

@@ -13,7 +13,7 @@ import utils.Constants;
 import utils.DataProvider;
 import utils.FacesUtils;
 import utils.MenuItemNotFoundException;
-import utils.RquestParameterNotFoundException;
+import utils.RequestParameterNotFoundException;
 import data.MenuData;
 
 @ManagedBean
@@ -106,7 +106,7 @@ public class MenuController implements Serializable {
     private void handleGetRequestWithoutParameter(String viewParameterName, String viewParameterValueToCheck) {
         try {
             String viewParameterValuefromRequestQuery = FacesUtils.extractParameterValueFromRequestMap(viewParameterName);
-        } catch (RquestParameterNotFoundException e) {
+        } catch (RequestParameterNotFoundException e) {
             LOG.info(e.getMessage());
             viewParameterValueToCheck = null;
         }

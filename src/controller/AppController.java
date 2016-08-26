@@ -15,7 +15,7 @@ import utils.Constants;
 import utils.DataProvider;
 import utils.FacesUtils;
 import utils.MenuItemNotFoundException;
-import utils.RquestParameterNotFoundException;
+import utils.RequestParameterNotFoundException;
 import data.MenuData;
 
 @ManagedBean
