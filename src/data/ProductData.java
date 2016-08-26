@@ -1,8 +1,12 @@
 package data;
 
-public class ProductData {
+import java.io.Serializable;
 
-	private int id;
+public class ProductData implements Serializable {
+
+	private static final long serialVersionUID = 4844956061897650576L;
+	
+    private int id;
 	private String name;
 	private String description;
 	private double price;

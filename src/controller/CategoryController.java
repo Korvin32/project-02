@@ -9,7 +9,6 @@ import javax.faces.bean.ViewScoped;
 import org.jboss.logging.Logger;
 
 import data.CategoryData;
-import data.ProductData;
 import utils.CategoryNotFoundException;
 import utils.Constants;
 import utils.DataProvider;
@@ -99,11 +98,11 @@ public class CategoryController implements Serializable {
      */
     /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-    public List<ProductData> getProducts() {
-        log("getProducts()");
-        if (selectedCategory != null) {
-            return DataProvider.findProductsByCategory(selectedCategory);
-        }
-        return DataProvider.findProducts();
-    }
+//    public List<ProductData> getProducts() {
+//        log("getProducts()");
+//        if (selectedCategory != null) {
+//            return DataProvider.findProductsByCategory(selectedCategory);
+//        }
+//        return DataProvider.findProducts();
+//    }
 }

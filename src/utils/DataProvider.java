@@ -148,6 +148,20 @@ public final class DataProvider {
         }
         return products;
     }
+    
+    public static List<ProductData> findProductsByCategoryInRange(CategoryData category, int offset, int pageSize) {
+        LOG.info("findProductsInRange(" + category + ", " + offset + ", " + pageSize + ")");
+        List<ProductData> productsToFilter = findProductsByCategory(category);
+        List<ProductData> result = getPagedProducts(offset, pageSize, productsToFilter);
+        return result;
+    }
+    
+    public static List<ProductData> findProductsInRange(int offset, int pageSize) {
+        LOG.info("findProductsInRange(" + offset + ", " + pageSize + ")");
+        List<ProductData> productsToFilter = findProducts();
+        List<ProductData> result = getPagedProducts(offset, pageSize, productsToFilter);
+        return result;
+    }
 
     public static ProductData findProductById(Integer id) throws ProductNotFoundException {
         LOG.info("findCategoryById(" + id + ")");
@@ -159,4 +173,19 @@ public final class DataProvider {
         throw new ProductNotFoundException(id);
     }
 
+    private static List<ProductData> getPagedProducts(int offset, int pageSize, List<ProductData> productsToFilter) {
+        List<ProductData> pagedProducts = new ArrayList<ProductData>();
+        int productListSize = productsToFilter.size();
+        for (int i = 0; i < pageSize; i++) {
+            int productIndex = i + offset;
+            if (productIndex < productListSize) {
+                ProductData product = productsToFilter.get(productIndex);
+                pagedProducts.add(product);
+            } else {
+                break;
+            }
+        }
+        return pagedProducts;
+    }
+    
 }
