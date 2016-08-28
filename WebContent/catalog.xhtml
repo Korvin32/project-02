@@ -8,6 +8,9 @@
 	<f:metadata>
 		<f:viewParam name="category" value="#{categoryController.vpCategory}"/>
 		<f:viewAction action="#{categoryController.initCategory}" onPostback="false"/>
+		
+		<f:viewParam name="page" value="#{productsGallery.vpPage}"/>
+		<f:viewAction action="#{productsGallery.initProductsGallery}" onPostback="false"/>
 	</f:metadata>
 	
 	<ui:param name="curViewId"   value="#{view.viewId}" />

@@ -3,20 +3,18 @@ package controller;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 
 import org.jboss.logging.Logger;
 
+import data.ProductData;
 import utils.Constants;
 import utils.DataProvider;
 import utils.FacesUtils;
 import utils.ProductNotFoundException;
-import data.ProductData;
 
 @ManagedBean
-// @SessionScoped
 @ViewScoped
-// @RequestScoped
 public class ProductController implements Serializable {
 
     private static final long serialVersionUID = 1L;

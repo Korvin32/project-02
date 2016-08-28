@@ -17,6 +17,7 @@
 				<li class="category">
 					<h:link value="#{category.name}" title="#{category.name}" outcome="catalog?faces-redirect=true" styleClass="#{categoryController.getStyleClassForCategory(category)}">
 						<f:param name="category" value="#{category.id}" />
+						<f:param name="page" value="1" />
 					</h:link>
 				</li>
 			</ui:repeat>

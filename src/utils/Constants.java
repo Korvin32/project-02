@@ -16,6 +16,11 @@ public abstract class Constants {
 	/**
 	 * Name of the view parameter.
 	 */
+	public static final String VIEW_PARAMETER_NAME__PAGE = "page";
+	
+	/**
+	 * Name of the view parameter.
+	 */
 	public static final String VIEW_PARAMETER_NAME__PRODUCT_ID = "id";
 	
 	public static final String ATTRIBUTE_SELECTED_ITEM = "selectedItem";

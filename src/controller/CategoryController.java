@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 
 import org.jboss.logging.Logger;
 
@@ -15,9 +15,7 @@ import utils.DataProvider;
 import utils.FacesUtils;
 
 @ManagedBean
-// @SessionScoped
 @ViewScoped
-// @RequestScoped
 public class CategoryController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,52 +29,50 @@ public class CategoryController implements Serializable {
      */
     private String vpCategory;
 
+    public CategoryController() {
+        LOG.info("CREATION of CategoryController!");
+	}
+    
     public List<CategoryData> getCategories() {
-        log("getCategories()");
+        LOG.info("getCategories()");
         return DataProvider.findCategories();
     }
 
     public void initCategory() {
-        log("initCategory()");
-
-        /**
-         * Do not need it any more, as we are using ViewScoped managed bean.
-         */
-        // Reset menu item selection
-        // selectedMenu = null;
-
+        LOG.info("--> initCategory()");
         if (vpCategory != null) {
             try {
                 selectedCategory = DataProvider.findCategoryById(Integer.valueOf(vpCategory));
-                log("initCategory(): selectedCategory=" + selectedCategory);
+                LOG.info("--- initCategory(): selectedCategory=" + selectedCategory);
             } catch (NumberFormatException | CategoryNotFoundException e) {
-                LOG.error("initCategory(). Details: " + e.getMessage(), e);
+                LOG.error("--- initCategory(). Details: " + e.getMessage(), e);
                 FacesUtils.addErrorFacesMessage(e.getMessage());
             }
         } else {
             String message = "Category not specified! Please use navigation menu!";
-            LOG.error("initCategory(). Details: " + message);
+            LOG.error("--- initCategory(). Details: " + message);
             FacesUtils.addErrorFacesMessage(message);
         }
+        LOG.info("<-- initCategory()");
     }
 
     public CategoryData getSelectedCategory() {
-        log("getSelectedCategory(): selectedCategory=" + selectedCategory);
+        LOG.info("getSelectedCategory(): selectedCategory=" + selectedCategory);
         return selectedCategory;
     }
 
     public void setSelectedCategory(CategoryData selectedCategory) {
-        log("setSelectedCategory(): " + selectedCategory);
+        LOG.info("setSelectedCategory(): " + selectedCategory);
         this.selectedCategory = selectedCategory;
     }
 
     public String getVpCategory() {
-        log("getVpCategory(): vpCategory = " + vpCategory);
+        LOG.info("getVpCategory(): vpCategory = " + vpCategory);
         return vpCategory;
     }
 
     public void setVpCategory(String vpCategory) {
-        log("setVpCategory(): " + vpCategory);
+        LOG.info("setVpCategory(): " + vpCategory);
         this.vpCategory = vpCategory;
     }
 
@@ -86,23 +82,4 @@ public class CategoryController implements Serializable {
         }
         return Constants.UI_CLASS_CATEGORY;
     }
-
-    private void log(String txt) {
-        LOG.info(txt);
-    }
-
-    /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    /*
-     * Here starts the handling of products gallery in a category (if selected) or a whole list of available products
-     * (if no specific category selected)
-     */
-    /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-//    public List<ProductData> getProducts() {
-//        log("getProducts()");
-//        if (selectedCategory != null) {
-//            return DataProvider.findProductsByCategory(selectedCategory);
-//        }
-//        return DataProvider.findProducts();
-//    }
 }

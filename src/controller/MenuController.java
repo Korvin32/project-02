@@ -4,22 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 
 import org.jboss.logging.Logger;
 
+import data.MenuData;
 import utils.Constants;
 import utils.DataProvider;
 import utils.FacesUtils;
 import utils.MenuItemNotFoundException;
-import utils.RequestParameterNotFoundException;
-import data.MenuData;
 
 @ManagedBean
-// @SessionScoped
 @ViewScoped
-// @RequestScoped
 public class MenuController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +31,7 @@ public class MenuController implements Serializable {
     private String vpView;
 
     public List<MenuData> getMenuItems() {
-        log("getMenuItems()");
+        LOG.info("getMenuItems()");
         return DataProvider.findMenuDatas();
     }
 
@@ -44,17 +41,8 @@ public class MenuController implements Serializable {
      *
      */
     public void initHeaderMenu() {
-        log("initHeaderMenu(): current vpView=" + vpView);
+        LOG.info("initHeaderMenu(): current vpView=" + vpView);
 
-        /**
-         * Do not need it any more, as we are using ViewScoped managed bean.
-         */
-        // Reset category selection
-        // selectedCategory = null;
-
-        // if (FacesUtils.isRequestMethodGet()) {
-        // handleGetRequestWithoutParameter(Constants.VIEW_PARAMETER_NAME__VIEW, vpView);
-        // }
         try {
             if (vpView != null) {
                 selectedMenu = DataProvider.findMenuItemByViewParam(vpView);
@@ -62,7 +50,7 @@ public class MenuController implements Serializable {
                 String currentView = FacesUtils.getCurrentViewId();
                 selectedMenu = DataProvider.findMenuItemByXhtmlViewNameWithoutViewParam(currentView);
             }
-            log("initHeaderMenu(): selectedMenu=" + selectedMenu);
+            LOG.info("initHeaderMenu(): selectedMenu=" + selectedMenu);
         } catch (MenuItemNotFoundException e) {
             LOG.error("initHeaderMenu(). Details: " + e.getMessage(), e);
             FacesUtils.addErrorFacesMessage(e.getMessage());
@@ -70,28 +58,28 @@ public class MenuController implements Serializable {
     }
 
     public MenuData getSelectedMenu() {
-        log("getSelectedMenu(): selectedMenu=" + selectedMenu);
+        LOG.info("getSelectedMenu(): selectedMenu=" + selectedMenu);
         return selectedMenu;
     }
 
     public void setSelectedMenu(MenuData selectedMenu) {
-        log("setSelectedMenu(): " + selectedMenu);
+        LOG.info("setSelectedMenu(): " + selectedMenu);
         this.selectedMenu = selectedMenu;
     }
 
     public void menuItemActionListener(ActionEvent ae) {
-        log("menuItemActionListener()");
+        LOG.info("menuItemActionListener()");
         selectedMenu = (MenuData) ae.getComponent().getAttributes().get(Constants.ATTRIBUTE_SELECTED_ITEM);
-        log("menuItemActionListener() : attributesMap = " + selectedMenu);
+        LOG.info("menuItemActionListener() : attributesMap = " + selectedMenu);
     }
 
     public String getVpView() {
-        log("getVpView(): vpView=" + vpView);
+        LOG.info("getVpView(): vpView=" + vpView);
         return vpView;
     }
 
     public void setVpView(String vpView) {
-        log("setVpView(): " + vpView);
+        LOG.info("setVpView(): " + vpView);
         this.vpView = vpView;
 
     }
@@ -101,19 +89,6 @@ public class MenuController implements Serializable {
             return Constants.UI_STYLE_HEADER_MENU_SELECTED;
         }
         return Constants.UI_STYLE_HEADER_MENU;
-    }
-
-    private void handleGetRequestWithoutParameter(String viewParameterName, String viewParameterValueToCheck) {
-        try {
-            String viewParameterValuefromRequestQuery = FacesUtils.extractParameterValueFromRequestMap(viewParameterName);
-        } catch (RequestParameterNotFoundException e) {
-            LOG.info(e.getMessage());
-            viewParameterValueToCheck = null;
-        }
-    }
-
-    private void log(String txt) {
-        LOG.info(txt);
     }
 
 }

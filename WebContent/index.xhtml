@@ -8,6 +8,9 @@
 	<f:metadata>
 		<f:viewParam name="view" value="#{menuController.vpView}"></f:viewParam>
 		<f:viewAction action="#{menuController.initHeaderMenu}" onPostback="true" />
+		
+		<f:viewParam name="page" value="#{productsGallery.vpPage}"/>
+		<f:viewAction action="#{productsGallery.initProductsGallery}" onPostback="false"/>
 	</f:metadata>
 
 	<ui:param name="curFileName" value="#{menuController.selectedMenu.xhtmlViewName}" /> <!-- to pass ui:param to template file -->

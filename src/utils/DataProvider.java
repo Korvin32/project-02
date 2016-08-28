@@ -150,14 +150,14 @@ public final class DataProvider {
     }
     
     public static List<ProductData> findProductsByCategoryInRange(CategoryData category, int offset, int pageSize) {
-        LOG.info("findProductsInRange(" + category + ", " + offset + ", " + pageSize + ")");
+        LOG.info("findProductsByCategoryInRange(" + category + ", offset=" + offset + ", pageSize=" + pageSize + ")");
         List<ProductData> productsToFilter = findProductsByCategory(category);
         List<ProductData> result = getPagedProducts(offset, pageSize, productsToFilter);
         return result;
     }
     
     public static List<ProductData> findProductsInRange(int offset, int pageSize) {
-        LOG.info("findProductsInRange(" + offset + ", " + pageSize + ")");
+        LOG.info("findProductsInRange(offset=" + offset + ", pageSize=" + pageSize + ")");
         List<ProductData> productsToFilter = findProducts();
         List<ProductData> result = getPagedProducts(offset, pageSize, productsToFilter);
         return result;

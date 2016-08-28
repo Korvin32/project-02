@@ -1,5 +1,6 @@
 package utils;
 
+import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -39,5 +40,13 @@ public final class FacesUtils {
             throw new RequestParameterNotFoundException(viewParameterName);
         }
         return viewParameterValue;
+    }
+    
+    public static <T> T getManagedBean (String beanName, Class<T> clazz) {
+    	FacesContext ctx = FacesContext.getCurrentInstance();
+    	ELContext elContext = ctx.getELContext();
+    	Object value = elContext.getELResolver().getValue(elContext, null, beanName);
+    	T bean = clazz.cast(value);
+    	return bean;
     }
 }
