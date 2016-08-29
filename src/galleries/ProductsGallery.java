@@ -2,6 +2,8 @@ package galleries;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.jboss.logging.Logger;
 
 import controller.CategoryController;
@@ -10,7 +12,6 @@ import data.ProductData;
 import utils.Constants;
 import utils.DataListingSupport;
 import utils.DataProvider;
-import utils.FacesUtils;
 
 //@javax.faces.bean.ManagedBean
 //@javax.faces.bean.ViewScoped
@@ -26,6 +27,9 @@ public class ProductsGallery extends DataListingSupport<ProductData> {
      * Holds the value of view parameter names {@link Constants#VIEW_PARAMETER_NAME__PAGE}
      */
     private int vpPage;
+    
+    @Inject
+    private CategoryController categoryController;
     
     public void initProductsGallery() {
         LOG.info("--> initProductsGallery().");
@@ -74,7 +78,7 @@ public class ProductsGallery extends DataListingSupport<ProductData> {
 
 	private CategoryData getSelectedCategoryData() {
 	    LOG.info("--> getSelectedCategoryData().");
-    	CategoryController categoryController = FacesUtils.getManagedBean("categoryController", CategoryController.class);
+//    	CategoryController categoryController = FacesUtils.getManagedBean("categoryController", CategoryController.class);
     	CategoryData selectedCategory = categoryController.getSelectedCategory();
     	return selectedCategory;
     }
