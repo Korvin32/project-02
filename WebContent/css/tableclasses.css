@@ -31,15 +31,16 @@ ul li a.category_item {
 	display: block;
 	position: relative;
 	left: -5px;
-	line-height: 1.1em;
+	line-height: 1.5em;
 }
 
 ul li a.category_item_selected {
 	font-size: 12px;
 	font-family: Verdana;
+	font-weight: bold;
 	color: darkorange;
 	display: block;
 	position: relative;
 	left: -5px;
-	line-height: 1.1em;
+	line-height: 1.5em;
 }

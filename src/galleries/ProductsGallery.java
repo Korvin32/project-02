@@ -2,9 +2,6 @@ package galleries;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
-
 import org.jboss.logging.Logger;
 
 import controller.CategoryController;
@@ -15,8 +12,10 @@ import utils.DataListingSupport;
 import utils.DataProvider;
 import utils.FacesUtils;
 
-@ManagedBean
-@ViewScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.ViewScoped
+@javax.inject.Named
+@javax.faces.view.ViewScoped
 public class ProductsGallery extends DataListingSupport<ProductData> {
 
     private static final long serialVersionUID = -1060917730823569754L;
@@ -74,6 +73,7 @@ public class ProductsGallery extends DataListingSupport<ProductData> {
 	}
 
 	private CategoryData getSelectedCategoryData() {
+	    LOG.info("--> getSelectedCategoryData().");
     	CategoryController categoryController = FacesUtils.getManagedBean("categoryController", CategoryController.class);
     	CategoryData selectedCategory = categoryController.getSelectedCategory();
     	return selectedCategory;

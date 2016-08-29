@@ -2,13 +2,12 @@ package controller;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import org.jboss.logging.Logger;
 
-@ManagedBean
-@SessionScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.SessionScoped
+@javax.inject.Named
+@javax.enterprise.context.SessionScoped
 public class AjaxExample implements Serializable {
 
 	private static final long serialVersionUID = 1L;

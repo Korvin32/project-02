@@ -6,8 +6,8 @@
 	template="/WEB-INF/resources/template/indexTemplate.xhtml">
 
 	<f:metadata>
-		<f:viewParam name="view" value="#{menuController.vpView}"></f:viewParam>
-		<f:viewAction action="#{menuController.initHeaderMenu}" onPostback="true" />
+		<f:viewParam name="view" value="#{menuController.vpView}"/>
+		<f:viewAction action="#{menuController.initHeaderMenu}" onPostback="false"/>
 		
 		<f:viewParam name="page" value="#{productsGallery.vpPage}"/>
 		<f:viewAction action="#{productsGallery.initProductsGallery}" onPostback="false"/>

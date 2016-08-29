@@ -3,9 +3,7 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
 
 import org.jboss.logging.Logger;
 
@@ -15,8 +13,10 @@ import utils.DataProvider;
 import utils.FacesUtils;
 import utils.MenuItemNotFoundException;
 
-@ManagedBean
-@ViewScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.ViewScoped
+@javax.inject.Named
+@javax.faces.view.ViewScoped
 public class MenuController implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -3,9 +3,6 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
-
 import org.jboss.logging.Logger;
 
 import data.CategoryData;
@@ -14,8 +11,10 @@ import utils.Constants;
 import utils.DataProvider;
 import utils.FacesUtils;
 
-@ManagedBean
-@ViewScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.ViewScoped
+@javax.inject.Named
+@javax.faces.view.ViewScoped
 public class CategoryController implements Serializable {
 
     private static final long serialVersionUID = 1L;

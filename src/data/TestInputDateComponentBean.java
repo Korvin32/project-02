@@ -3,14 +3,13 @@ package data;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ManagedBean(name="bean")
-@SessionScoped
+//@javax.faces.bean.ManagedBean(name="bean")
+//@javax.faces.bean.SessionScoped
+@javax.inject.Named("bean")
+@javax.enterprise.context.SessionScoped
 public class TestInputDateComponentBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

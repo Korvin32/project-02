@@ -6,15 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import utils.DataProvider;
 import data.MenuData;
+import utils.DataProvider;
 
-@ManagedBean
-@SessionScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.SessionScoped
+@javax.inject.Named
+@javax.enterprise.context.SessionScoped
 public class AdminBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

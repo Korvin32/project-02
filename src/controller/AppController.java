@@ -3,15 +3,14 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
-
 import org.jboss.logging.Logger;
 
 import utils.DataProvider;
 
-@ManagedBean
-@ViewScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.ViewScoped
+@javax.inject.Named
+@javax.faces.view.ViewScoped
 public class AppController implements Serializable {
 
     private static final long serialVersionUID = 1L;

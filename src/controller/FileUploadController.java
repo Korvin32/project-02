@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
@@ -18,8 +16,10 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ManagedBean
-@SessionScoped
+//@javax.faces.bean.ManagedBean
+//@javax.faces.bean.SessionScoped
+@javax.inject.Named
+@javax.enterprise.context.SessionScoped
 public class FileUploadController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
