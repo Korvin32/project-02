@@ -39,4 +39,6 @@ public abstract class Constants {
 	@Deprecated
 	public static final String DEFAULT_VIEW_PARAM_VALUE__VIEW_FORMAT = "{0}View";
 	
+	public static final String APPLICATION_COMPOSITION_VIEW_TEMPLATE_PATH = "/WEB-INF/resources/template/indexTemplate.xhtml";
+	
 }
