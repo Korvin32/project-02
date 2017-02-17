@@ -9,12 +9,22 @@ public class CategoryData {
 	private int id;
 	private int order;
 	private String name;
+	private int parentId;
 	
 	public CategoryData(int id, int order, String name) {
-		this.id = id;
+		createBaseCaetgory(id, order, name);
+	}
+
+	public CategoryData(int id, int order, String name, int parentId) {
+	    createBaseCaetgory(id, order, name);
+	    this.setParentId(parentId);
+	}
+	
+    private void createBaseCaetgory(int id, int order, String name) {
+        this.id = id;
 		this.order = order;
 		this.name = name;
-	}
+    }
 
 	public int getId() {
 		return id;
@@ -39,10 +49,18 @@ public class CategoryData {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public int getParentId() {
+        return parentId;
+    }
 
-	@Override
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
 	public String toString() {
-		return "CategoryData [id=" + id + ", order=" + order + ", name=" + name + "]";
+		return "CategoryData [id=" + id + ", order=" + order + ", name=" + name + ", parentId=" + getParentId() + "]";
 	}
 	
 }
