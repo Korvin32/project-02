@@ -12,4 +12,8 @@ public final class CategoryDataUtil {
         return category.getParentId() > 0;
     }
 
+    public static boolean isHeadNode(CategoryData category) {
+        return category.getParentId() < 0;
+    }
+    
 }

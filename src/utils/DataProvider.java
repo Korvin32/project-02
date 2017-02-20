@@ -131,24 +131,39 @@ public final class DataProvider {
 
     public static CategoryData findCategoryById(int id) throws CategoryNotFoundException {
         LOG.info("findCategoryById(" + id + ")");
-        for (CategoryData category : categories) {
-            CategoryData matchedCategory = checkCategoryForId(id, category);
-            return matchedCategory;
+        List<CategoryData> flattenCategories = flattenAllCategories();
+        LOG.info("findCategoryById: Flatten categories size: " + flattenCategories.size());
+        
+        for (CategoryData category : flattenCategories) {
+            if (category.getId() == id) {
+                return category;
+            }
         }
         throw new CategoryNotFoundException(id);
     }
 
-    private static CategoryData checkCategoryForId(int id, CategoryData category) throws CategoryNotFoundException {
-        if (category.getId() == id) {
-            return category;
-        }
-        if (CategoryDataUtil.hasChildren(category)) {
-            for (CategoryData subCategory : category.getChildren()) {
-                CategoryData matchedCategory = checkCategoryForId(id, subCategory);
-                return matchedCategory;
+    private static List<CategoryData> flattenAllCategories() {
+        List<CategoryData> flattenCategories = new ArrayList<>();
+        for (CategoryData category : categories) {
+            flattenCategories.add(category);
+            if (CategoryDataUtil.hasChildren(category)) {
+                Collection<CategoryData> subCategories = category.getChildren();
+                flattenCategories.addAll(flattenCategories(subCategories));
             }
         }
-        throw new CategoryNotFoundException(id);
+        return flattenCategories;
+    }
+
+    private static List<CategoryData> flattenCategories(Collection<CategoryData> categories) {
+        List<CategoryData> flattenCategories = new ArrayList<>();
+        for (CategoryData category : categories) {
+            flattenCategories.add(category);
+            if (CategoryDataUtil.hasChildren(category)) {
+                Collection<CategoryData> subCategories = category.getChildren();
+                flattenCategories.addAll(flattenCategories(subCategories));
+            }
+        }
+        return flattenCategories;
     }
 
     public static List<ProductData> findProducts() {
