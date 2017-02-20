@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.jboss.logging.Logger;
@@ -13,6 +14,12 @@ public final class DataProvider {
 
     private final static Logger LOG = Logger.getLogger(DataProvider.class);
 
+    private static final int CATEGORIES_COUNT = 12;
+    
+    private static final int CHILD_CATEGORIES_PER_CATEGORY_COUNT = 4;
+    
+    private static final int CATEGORIES_MAX_NESTING = 2;
+    
     private static final int PRODUCTS_PER_CATEGORY = 100;
     
     private static List<MenuData> menuItems = new ArrayList<MenuData>();
@@ -43,10 +50,46 @@ public final class DataProvider {
     //@formatter:on
 
     static {
-        for (int c = 0; c < 12; c++) {
-            String name = String.format("Category - %d", (c + 1));
-            categories.add(new CategoryData(c, c, name));
+        List<CategoryData> categories = createAllCategories();
+        DataProvider.categories.addAll(categories);
+    }
+
+    private static List<CategoryData> createAllCategories() {
+        List<CategoryData> categories = new ArrayList<>();
+        int incrementingCategoryId = 1;
+        for (int c = 0; c < CATEGORIES_COUNT; c++) {
+            int categoryNestingLevel = 0;
+            CategoryData parent = null;
+            CategoryData category = createCategory(c, incrementingCategoryId, categoryNestingLevel, parent);
+            categories.add(category);
         }
+        return categories;
+    }
+
+    private static CategoryData createCategory(int c, int incrementingCategoryId, int categoryNestingLevel, CategoryData parent) {
+        String name = String.format("Category - %d", (c + 1));
+        CategoryData category = new CategoryData(incrementingCategoryId, c, name, -1);
+        incrementingCategoryId++;
+        if (parent != null) {
+            category.setName(String.format("Sub-'%s' - %d", parent.getName(), (c + 1)));
+            category.setParentId(parent.getId());
+        }
+        if (categoryNestingLevel < CATEGORIES_MAX_NESTING) {
+            Collection<CategoryData> children = createSubCategoriesForCategory(category, incrementingCategoryId, categoryNestingLevel);
+            category.setChildren(children);
+        }
+        return category;
+    }
+
+    private static Collection<CategoryData> createSubCategoriesForCategory(CategoryData parent, int incrementingCategoryId, int categoryNestingLevel) {
+        categoryNestingLevel++;
+        Collection<CategoryData> subCategories = new ArrayList<>();
+        for (int cc = 0; cc < CHILD_CATEGORIES_PER_CATEGORY_COUNT; cc++) {
+            CategoryData subCategory = createCategory(cc, incrementingCategoryId, categoryNestingLevel, parent);
+            subCategories.add(subCategory);
+        }
+        
+        return subCategories;
     }
 
     static {
@@ -188,4 +231,21 @@ public final class DataProvider {
         return pagedProducts;
     }
     
+    public static void main(String[] args) {
+        List<CategoryData> allCategories = createAllCategories();
+        for (CategoryData category : allCategories) {
+            String indentation = "";
+            printCategory(category, indentation);
+        }
+    }
+
+    private static void printCategory(CategoryData category, String indentation) {
+        System.out.println(String.format("%s%s", indentation, category.getName()));
+        if (category.getChildren() != null && !category.getChildren().isEmpty()) {
+            indentation.concat("\t");
+            for (CategoryData subCategory : category.getChildren()) {
+                printCategory(subCategory, indentation);
+            }
+        }
+    }
 }
