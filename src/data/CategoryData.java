@@ -1,5 +1,8 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * @author zagorod
  *
@@ -10,22 +13,15 @@ public class CategoryData {
 	private int order;
 	private String name;
 	private int parentId;
+	private Collection<CategoryData> children = new ArrayList<>();
 	
-	public CategoryData(int id, int order, String name) {
-		createBaseCaetgory(id, order, name);
-	}
-
 	public CategoryData(int id, int order, String name, int parentId) {
-	    createBaseCaetgory(id, order, name);
-	    this.setParentId(parentId);
+	    this.id = id;
+        this.order = order;
+        this.name = name;
+	    this.parentId = parentId;
 	}
 	
-    private void createBaseCaetgory(int id, int order, String name) {
-        this.id = id;
-		this.order = order;
-		this.name = name;
-    }
-
 	public int getId() {
 		return id;
 	}
@@ -56,6 +52,14 @@ public class CategoryData {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public Collection<CategoryData> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Collection<CategoryData> children) {
+        this.children = children;
     }
 
     @Override

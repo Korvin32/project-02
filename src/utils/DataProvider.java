@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.jboss.logging.Logger;
@@ -13,7 +14,13 @@ public final class DataProvider {
 
     private final static Logger LOG = Logger.getLogger(DataProvider.class);
 
-    private static final int PRODUCTS_PER_CATEGORY = 100;
+    private static final int CATEGORIES_HEAD_NODES_COUNT = 12;
+    
+    private static final int CATEGORIES_CHILDREN_PER_CATEGORY_COUNT = 4;
+    
+    private static final int CATEGORIES_MAX_NESTING = 2;
+    
+    private static final int PRODUCTS_PER_CATEGORY = 12;
     
     private static List<MenuData> menuItems = new ArrayList<MenuData>();
 
@@ -22,6 +29,8 @@ public final class DataProvider {
     private static List<ProductData> products = new ArrayList<ProductData>();
 
     private static List<String> images = new ArrayList<String>();
+    
+    private static int incrementingCategoryId = 1;
 
     //@formatter:off
     static {
@@ -43,14 +52,49 @@ public final class DataProvider {
     //@formatter:on
 
     static {
-        for (int c = 0; c < 12; c++) {
-            String name = String.format("Category - %d", (c + 1));
-            categories.add(new CategoryData(c, c, name));
+        List<CategoryData> categories = createAllCategories();
+        DataProvider.categories.addAll(categories);
+    }
+
+    private static List<CategoryData> createAllCategories() {
+        List<CategoryData> categories = new ArrayList<>();
+        for (int c = 0; c < CATEGORIES_HEAD_NODES_COUNT; c++) {
+            int categoryNestingLevel = 0;
+            CategoryData parent = null;
+            CategoryData category = createCategory(c, categoryNestingLevel, parent);
+            categories.add(category);
         }
+        return categories;
+    }
+
+    private static CategoryData createCategory(int c, int categoryNestingLevel, CategoryData parent) {
+        String name = String.format("Category - %d", (c + 1));
+        CategoryData category = new CategoryData(incrementingCategoryId, c, name, -1);
+        incrementingCategoryId++;
+        if (parent != null) {
+            category.setName(String.format("Sub-'%s' - %d", parent.getName(), (c + 1)));
+            category.setParentId(parent.getId());
+        }
+        if (categoryNestingLevel < CATEGORIES_MAX_NESTING) {
+            Collection<CategoryData> children = createSubCategoriesForCategory(category, categoryNestingLevel);
+            category.setChildren(children);
+        }
+        return category;
+    }
+
+    private static Collection<CategoryData> createSubCategoriesForCategory(CategoryData parent, int categoryNestingLevel) {
+        categoryNestingLevel++;
+        Collection<CategoryData> subCategories = new ArrayList<>();
+        for (int cc = 0; cc < CATEGORIES_CHILDREN_PER_CATEGORY_COUNT; cc++) {
+            CategoryData subCategory = createCategory(cc, categoryNestingLevel, parent);
+            subCategories.add(subCategory);
+        }
+        
+        return subCategories;
     }
 
     static {
-        for (CategoryData category : categories) {
+        for (CategoryData category : getFlattenCategories()) {
             int categoryId = category.getId();
             for (int p = 0; p < PRODUCTS_PER_CATEGORY; p++) {
                 int productId = PRODUCTS_PER_CATEGORY * categoryId + p;
@@ -87,12 +131,39 @@ public final class DataProvider {
 
     public static CategoryData findCategoryById(int id) throws CategoryNotFoundException {
         LOG.info("findCategoryById(" + id + ")");
-        for (CategoryData categoryData : categories) {
-            if (categoryData.getId() == id) {
-                return categoryData;
+        List<CategoryData> flattenCategories = getFlattenCategories();
+        
+        for (CategoryData category : flattenCategories) {
+            if (category.getId() == id) {
+                return category;
             }
         }
         throw new CategoryNotFoundException(id);
+    }
+
+    public static List<CategoryData> getFlattenCategories() {
+        List<CategoryData> flattenCategories = new ArrayList<>();
+        for (CategoryData category : categories) {
+            flattenCategories.add(category);
+            if (CategoryDataUtil.hasChildren(category)) {
+                Collection<CategoryData> subCategories = category.getChildren();
+                flattenCategories.addAll(flattenCategories(subCategories));
+            }
+        }
+        LOG.info("getFlattenCategories: Flatten categories size: " + flattenCategories.size());
+        return flattenCategories;
+    }
+
+    private static List<CategoryData> flattenCategories(Collection<CategoryData> categories) {
+        List<CategoryData> flattenCategories = new ArrayList<>();
+        for (CategoryData category : categories) {
+            flattenCategories.add(category);
+            if (CategoryDataUtil.hasChildren(category)) {
+                Collection<CategoryData> subCategories = category.getChildren();
+                flattenCategories.addAll(flattenCategories(subCategories));
+            }
+        }
+        return flattenCategories;
     }
 
     public static List<ProductData> findProducts() {
