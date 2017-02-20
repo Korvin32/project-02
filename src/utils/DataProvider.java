@@ -14,9 +14,9 @@ public final class DataProvider {
 
     private final static Logger LOG = Logger.getLogger(DataProvider.class);
 
-    private static final int CATEGORIES_COUNT = 12;
+    private static final int CATEGORIES_HEAD_NODES_COUNT = 12;
     
-    private static final int CHILD_CATEGORIES_PER_CATEGORY_COUNT = 4;
+    private static final int CATEGORIES_CHILDREN_PER_CATEGORY_COUNT = 4;
     
     private static final int CATEGORIES_MAX_NESTING = 2;
     
@@ -29,6 +29,8 @@ public final class DataProvider {
     private static List<ProductData> products = new ArrayList<ProductData>();
 
     private static List<String> images = new ArrayList<String>();
+    
+    private static int incrementingCategoryId = 1;
 
     //@formatter:off
     static {
@@ -56,17 +58,16 @@ public final class DataProvider {
 
     private static List<CategoryData> createAllCategories() {
         List<CategoryData> categories = new ArrayList<>();
-        int incrementingCategoryId = 1;
-        for (int c = 0; c < CATEGORIES_COUNT; c++) {
+        for (int c = 0; c < CATEGORIES_HEAD_NODES_COUNT; c++) {
             int categoryNestingLevel = 0;
             CategoryData parent = null;
-            CategoryData category = createCategory(c, incrementingCategoryId, categoryNestingLevel, parent);
+            CategoryData category = createCategory(c, categoryNestingLevel, parent);
             categories.add(category);
         }
         return categories;
     }
 
-    private static CategoryData createCategory(int c, int incrementingCategoryId, int categoryNestingLevel, CategoryData parent) {
+    private static CategoryData createCategory(int c, int categoryNestingLevel, CategoryData parent) {
         String name = String.format("Category - %d", (c + 1));
         CategoryData category = new CategoryData(incrementingCategoryId, c, name, -1);
         incrementingCategoryId++;
@@ -75,17 +76,17 @@ public final class DataProvider {
             category.setParentId(parent.getId());
         }
         if (categoryNestingLevel < CATEGORIES_MAX_NESTING) {
-            Collection<CategoryData> children = createSubCategoriesForCategory(category, incrementingCategoryId, categoryNestingLevel);
+            Collection<CategoryData> children = createSubCategoriesForCategory(category, categoryNestingLevel);
             category.setChildren(children);
         }
         return category;
     }
 
-    private static Collection<CategoryData> createSubCategoriesForCategory(CategoryData parent, int incrementingCategoryId, int categoryNestingLevel) {
+    private static Collection<CategoryData> createSubCategoriesForCategory(CategoryData parent, int categoryNestingLevel) {
         categoryNestingLevel++;
         Collection<CategoryData> subCategories = new ArrayList<>();
-        for (int cc = 0; cc < CHILD_CATEGORIES_PER_CATEGORY_COUNT; cc++) {
-            CategoryData subCategory = createCategory(cc, incrementingCategoryId, categoryNestingLevel, parent);
+        for (int cc = 0; cc < CATEGORIES_CHILDREN_PER_CATEGORY_COUNT; cc++) {
+            CategoryData subCategory = createCategory(cc, categoryNestingLevel, parent);
             subCategories.add(subCategory);
         }
         
@@ -130,9 +131,21 @@ public final class DataProvider {
 
     public static CategoryData findCategoryById(int id) throws CategoryNotFoundException {
         LOG.info("findCategoryById(" + id + ")");
-        for (CategoryData categoryData : categories) {
-            if (categoryData.getId() == id) {
-                return categoryData;
+        for (CategoryData category : categories) {
+            CategoryData matchedCategory = checkCategoryForId(id, category);
+            return matchedCategory;
+        }
+        throw new CategoryNotFoundException(id);
+    }
+
+    private static CategoryData checkCategoryForId(int id, CategoryData category) throws CategoryNotFoundException {
+        if (category.getId() == id) {
+            return category;
+        }
+        if (CategoryDataUtil.hasChildren(category)) {
+            for (CategoryData subCategory : category.getChildren()) {
+                CategoryData matchedCategory = checkCategoryForId(id, subCategory);
+                return matchedCategory;
             }
         }
         throw new CategoryNotFoundException(id);
@@ -231,21 +244,4 @@ public final class DataProvider {
         return pagedProducts;
     }
     
-    public static void main(String[] args) {
-        List<CategoryData> allCategories = createAllCategories();
-        for (CategoryData category : allCategories) {
-            String indentation = "";
-            printCategory(category, indentation);
-        }
-    }
-
-    private static void printCategory(CategoryData category, String indentation) {
-        System.out.println(String.format("%s%s", indentation, category.getName()));
-        if (category.getChildren() != null && !category.getChildren().isEmpty()) {
-            indentation.concat("\t");
-            for (CategoryData subCategory : category.getChildren()) {
-                printCategory(subCategory, indentation);
-            }
-        }
-    }
 }
