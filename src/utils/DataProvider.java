@@ -20,7 +20,7 @@ public final class DataProvider {
     
     private static final int CATEGORIES_MAX_NESTING = 2;
     
-    private static final int PRODUCTS_PER_CATEGORY = 100;
+    private static final int PRODUCTS_PER_CATEGORY = 12;
     
     private static List<MenuData> menuItems = new ArrayList<MenuData>();
 
@@ -94,7 +94,7 @@ public final class DataProvider {
     }
 
     static {
-        for (CategoryData category : categories) {
+        for (CategoryData category : getFlattenCategories()) {
             int categoryId = category.getId();
             for (int p = 0; p < PRODUCTS_PER_CATEGORY; p++) {
                 int productId = PRODUCTS_PER_CATEGORY * categoryId + p;
@@ -131,8 +131,7 @@ public final class DataProvider {
 
     public static CategoryData findCategoryById(int id) throws CategoryNotFoundException {
         LOG.info("findCategoryById(" + id + ")");
-        List<CategoryData> flattenCategories = flattenAllCategories();
-        LOG.info("findCategoryById: Flatten categories size: " + flattenCategories.size());
+        List<CategoryData> flattenCategories = getFlattenCategories();
         
         for (CategoryData category : flattenCategories) {
             if (category.getId() == id) {
@@ -142,7 +141,7 @@ public final class DataProvider {
         throw new CategoryNotFoundException(id);
     }
 
-    private static List<CategoryData> flattenAllCategories() {
+    public static List<CategoryData> getFlattenCategories() {
         List<CategoryData> flattenCategories = new ArrayList<>();
         for (CategoryData category : categories) {
             flattenCategories.add(category);
@@ -151,6 +150,7 @@ public final class DataProvider {
                 flattenCategories.addAll(flattenCategories(subCategories));
             }
         }
+        LOG.info("getFlattenCategories: Flatten categories size: " + flattenCategories.size());
         return flattenCategories;
     }
 

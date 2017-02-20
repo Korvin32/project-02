@@ -29,6 +29,8 @@ public class DataProviderTest {
         try {
             CategoryData findCategoryById = DataProvider.findCategoryById(26);
             System.out.println(findCategoryById);
+            CategoryData findCategoryByWrongId = DataProvider.findCategoryById(1000);
+            System.out.println(findCategoryByWrongId);
         } catch (CategoryNotFoundException e) {
             e.printStackTrace();
         }
