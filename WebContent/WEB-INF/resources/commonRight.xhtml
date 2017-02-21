@@ -11,16 +11,9 @@
 		<h5>(ViewId here is: #{view.viewId})</h5>
 	</h:panelGrid>
 	<br />
-	<div style="float: left; margin: 0px 10px 150px 0px;width: 135px;">
-		<ul>
-			<ui:repeat value="#{categoryController.categories}" var="category">
-				<li class="category">
-					<h:link value="#{category.name}" title="#{category.name}" outcome="catalog?faces-redirect=true" styleClass="#{categoryController.getStyleClassForCategory(category)}">
-						<f:param name="category" value="#{category.id}" />
-						<f:param name="page" value="1" />
-					</h:link>
-				</li>
-			</ui:repeat>
-		</ul>
+	<div style="float: left; margin: 0px 10px 150px 0px;width: 385px;">
+		<ui:include src="/WEB-INF/resources/commonRightNavigation.xhtml" >
+			<ui:param name="categories" value="#{categoryController.categories}" />
+		</ui:include>
 	</div>
 </ui:composition>

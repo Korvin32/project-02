@@ -16,9 +16,9 @@ public final class DataProvider {
 
     private static final int CATEGORIES_HEAD_NODES_COUNT = 12;
     
-    private static final int CATEGORIES_CHILDREN_PER_CATEGORY_COUNT = 4;
+    private static final int CATEGORIES_CHILDREN_PER_CATEGORY_COUNT = 2;
     
-    private static final int CATEGORIES_MAX_NESTING = 2;
+    private static final int CATEGORIES_MAX_NESTING = 1;
     
     private static final int PRODUCTS_PER_CATEGORY = 12;
     
@@ -142,14 +142,7 @@ public final class DataProvider {
     }
 
     public static List<CategoryData> getFlattenCategories() {
-        List<CategoryData> flattenCategories = new ArrayList<>();
-        for (CategoryData category : categories) {
-            flattenCategories.add(category);
-            if (CategoryDataUtil.hasChildren(category)) {
-                Collection<CategoryData> subCategories = category.getChildren();
-                flattenCategories.addAll(flattenCategories(subCategories));
-            }
-        }
+        List<CategoryData> flattenCategories = flattenCategories(categories);
         LOG.info("getFlattenCategories: Flatten categories size: " + flattenCategories.size());
         return flattenCategories;
     }
