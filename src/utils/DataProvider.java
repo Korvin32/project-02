@@ -16,9 +16,9 @@ public final class DataProvider {
 
     private static final int CATEGORIES_HEAD_NODES_COUNT = 12;
     
-    private static final int CATEGORIES_CHILDREN_PER_CATEGORY_COUNT = 4;
+    private static final int CATEGORIES_CHILDREN_PER_CATEGORY_COUNT = 2;
     
-    private static final int CATEGORIES_MAX_NESTING = 2;
+    private static final int CATEGORIES_MAX_NESTING = 1;
     
     private static final int PRODUCTS_PER_CATEGORY = 12;
     
