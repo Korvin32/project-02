@@ -142,14 +142,7 @@ public final class DataProvider {
     }
 
     public static List<CategoryData> getFlattenCategories() {
-        List<CategoryData> flattenCategories = new ArrayList<>();
-        for (CategoryData category : categories) {
-            flattenCategories.add(category);
-            if (CategoryDataUtil.hasChildren(category)) {
-                Collection<CategoryData> subCategories = category.getChildren();
-                flattenCategories.addAll(flattenCategories(subCategories));
-            }
-        }
+        List<CategoryData> flattenCategories = flattenCategories(categories);
         LOG.info("getFlattenCategories: Flatten categories size: " + flattenCategories.size());
         return flattenCategories;
     }
