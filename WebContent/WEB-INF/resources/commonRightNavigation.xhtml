@@ -13,7 +13,7 @@
 					<f:param name="page" value="1" />
 				</h:link>
 			</li>
-			<c:if test="#{category.hasChildren()}">
+			<c:if test="#{viewUtil.hasCategoryChildren(category)}">
 				<ui:include src="/WEB-INF/resources/commonRightNavigation.xhtml" >
 					<ui:param name="categories" value="#{category.children}" />
 				</ui:include>
