@@ -3,8 +3,6 @@ package data;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import utils.CategoryDataUtil;
-
 /**
  * @author zagorod
  *
@@ -64,10 +62,6 @@ public class CategoryData {
         this.children = children;
     }
 
-    public boolean hasChildren() {
-        return CategoryDataUtil.hasChildren(this);
-    }
-    
     @Override
 	public String toString() {
 		return "CategoryData [id=" + id + ", order=" + order + ", name=" + name + ", parentId=" + getParentId() + "]";
